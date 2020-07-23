@@ -1,0 +1,245 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled16.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyOcRl+u8ZJ+nFE1hwXRjSEx",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/EdmilsonEMAndrade/Projeto-Euler/blob/master/desafio18\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "x13emPOv006N",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "\"\"\"\n",
+        "By starting at the top of the triangle below and moving to adjacent numbers on the row below, the maximum total from top to bottom is 23.\n",
+        "\n",
+        "3\n",
+        "7 4\n",
+        "2 4 6\n",
+        "8 5 9 3\n",
+        "\n",
+        "That is, 3 + 7 + 4 + 9 = 23.\n",
+        "\n",
+        "Find the maximum total from top to bottom of the triangle below:\n",
+        "\n",
+        "75\n",
+        "95 64\n",
+        "17 47 82\n",
+        "18 35 87 10\n",
+        "20 04 82 47 65\n",
+        "19 01 23 75 03 34\n",
+        "88 02 77 73 07 63 67\n",
+        "99 65 04 28 06 16 70 92\n",
+        "41 41 26 56 83 40 80 70 33\n",
+        "41 48 72 33 47 32 37 16 94 29\n",
+        "53 71 44 65 25 43 91 52 97 51 14\n",
+        "70 11 33 28 77 73 17 78 39 68 17 57\n",
+        "91 71 52 38 17 14 91 43 58 50 27 29 48\n",
+        "63 66 04 68 89 53 67 30 73 16 69 87 40 31\n",
+        "04 62 98 27 23 09 70 98 73 93 38 53 60 04 23\n",
+        "\n",
+        "NOTE: As there are only 16384 routes, it is possible to solve this problem by trying every route. However, Problem 67, \n",
+        "is the same challenge with a triangle containing one-hundred rows; it cannot be solved by brute force, and requires a clever method! ;o)\n",
+        "\"\"\""
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "GNi76E-9WGkl",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "# colocando a piramide dentro de uma string -> strPiramide\n",
+        "strNum = \"75 95 64 17 47 82 18 35 87 10 20 04 82 47 65 19 01 23 75 03 34 88 02 77 73 07 63 67 99 65 04 28 06 16 70 92 41 41 26 56 83 40 80 70 33 41 48 72 33 47 32 37 16 94 29 53 71 44 65 25 43 91 52 97 51 14 70 11 33 28 77 73 17 78 39 68 17 57 91 71 52 38 17 14 91 43 58 50 27 29 48 63 66 04 68 89 53 67 30 73 16 69 87 40 31 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23\"\n"
+      ],
+      "execution_count": 71,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "vcYxWm1gWlxN",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "# tranformando a strPiramide em um Array, que recebera 1 array, 2 array, 3 array ... subsequentemente\n",
+        "piramide = []\n",
+        "contador = 0\n",
+        "for linha in range(15):\n",
+        "  base = []\n",
+        "  for quantidade in range(linha + 1):\n",
+        "    num = int(strNum[contador]+ strNum[contador +1])\n",
+        "    base.append(num)\n",
+        "    contador +=3\n",
+        "  piramide.append(base)\n",
+        "  "
+      ],
+      "execution_count": 72,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "cVPZ1Eqxt6A_",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 276
+        },
+        "outputId": "91026b0e-6bbf-44f5-ba73-a893d27ea37c"
+      },
+      "source": [
+        "for i  in range(len(piramide)):\n",
+        "  print(piramide[i])\n",
+        "  "
+      ],
+      "execution_count": 73,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "[75]\n",
+            "[95, 64]\n",
+            "[17, 47, 82]\n",
+            "[18, 35, 87, 10]\n",
+            "[20, 4, 82, 47, 65]\n",
+            "[19, 1, 23, 75, 3, 34]\n",
+            "[88, 2, 77, 73, 7, 63, 67]\n",
+            "[99, 65, 4, 28, 6, 16, 70, 92]\n",
+            "[41, 41, 26, 56, 83, 40, 80, 70, 33]\n",
+            "[41, 48, 72, 33, 47, 32, 37, 16, 94, 29]\n",
+            "[53, 71, 44, 65, 25, 43, 91, 52, 97, 51, 14]\n",
+            "[70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57]\n",
+            "[91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48]\n",
+            "[63, 66, 4, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31]\n",
+            "[4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23]\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "eAd3v67DkswN",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "newPiramide = piramide\n",
+        "contador = False\n",
+        "\"\"\"\n",
+        "Pegará o maior valor possivel do resultado entre a soma:\n",
+        "         newPiramide[linha][coluna] + newPiramide[linha-1][coluna] ou newPiramide[linha][coluna] + newPiramide[linha-1][coluna+1]\n",
+        "transformando esses valores em um array o qual substituirá a newPiramide[linha -1], até termos o maior caminho com o resultado na \n",
+        "newPiramide[0] ou max(newPiramide)\n",
+        "\"\"\"\n",
+        "for linha in range (len(piramide)-1, 0 , -1):\n",
+        "      sumLines =[]\n",
+        "      \n",
+        "      for coluna in range (len(piramide[linha-1])):\n",
+        "        \n",
+        "        maior = piramide[linha-1][coluna] + piramide[linha][coluna]\n",
+        "        if (piramide[linha-1][coluna] + piramide[linha][coluna+1])> maior:\n",
+        "          maior = piramide[linha-1][coluna] + piramide[linha][coluna+1]\n",
+        "        sumLines.append(maior)\n",
+        "      newPiramide[linha-1] = sumLines\n"
+      ],
+      "execution_count": 74,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "IevtAt3e0NoO",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 276
+        },
+        "outputId": "756cefae-c174-45a7-8fe6-f421deb8a2b2"
+      },
+      "source": [
+        "for i in range(len(newPiramide)):\n",
+        "  print(newPiramide[i])\n",
+        "  "
+      ],
+      "execution_count": 75,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "[1074]\n",
+            "[995, 999]\n",
+            "[818, 900, 935]\n",
+            "[704, 801, 853, 792]\n",
+            "[686, 640, 766, 731, 782]\n",
+            "[666, 614, 636, 684, 660, 717]\n",
+            "[647, 501, 613, 609, 533, 657, 683]\n",
+            "[559, 499, 479, 536, 514, 526, 594, 616]\n",
+            "[460, 434, 419, 475, 508, 470, 510, 524, 487]\n",
+            "[419, 365, 393, 387, 419, 425, 430, 376, 454, 322]\n",
+            "[378, 317, 231, 321, 354, 372, 393, 354, 360, 293, 247]\n",
+            "[325, 246, 187, 178, 256, 329, 273, 302, 263, 242, 193, 233]\n",
+            "[255, 235, 154, 150, 140, 179, 256, 209, 224, 172, 174, 176, 148]\n",
+            "[125, 164, 102, 95, 112, 123, 165, 128, 166, 109, 122, 147, 100, 54]\n",
+            "[4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23]\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "7678hZ952HpS",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 34
+        },
+        "outputId": "2afcce80-9046-4983-9d7b-29d846b77f7d"
+      },
+      "source": [
+        "print(max(newPiramide))"
+      ],
+      "execution_count": 76,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "[1074]\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    }
+  ]
+}
